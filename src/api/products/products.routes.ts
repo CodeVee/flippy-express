@@ -6,7 +6,7 @@ const router = Router();
 
 router
   .route("/")
-  .get(Controller.getProducts)
+  .get(Auth.authorizeSecret, Controller.getProducts)
   .post(Controller.addProduct);
 
 router

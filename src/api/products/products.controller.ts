@@ -7,22 +7,46 @@ import {
   IAddProductReq,
   IUpdateProductReq,
   IDeleteProductReq,
+  ICategory,
+  IReview,
 } from "./products.model";
 
-const PRODUCTS: IProduct[] = [
-  { id: 1, name: "Real Madrid", league: "La Liga", isActive: true },
-  { id: 2, name: "Barcelona", league: "La Liga", isActive: true },
+const review =
+  "Lorem Ipsum is simply dummy text of the printing and typesetting industry.";
+const REVIEWS: IReview[] = [
   {
-    id: 3,
-    name: "Manchester United",
-    league: "Premier League",
-    isActive: true,
+    id: 1,
+    userName: "Debra R. Estep",
+    rating: 5,
+    time: "1 day ago",
+    text: review,
   },
-  { id: 4, name: "Liverpool", league: "Premier League", isActive: true },
-  { id: 5, name: "Arsenal", league: "Premier League", isActive: true },
-  { id: 6, name: "Inter", league: "Serie A", isActive: true },
-  { id: 7, name: "Milan", league: "Serie A", isActive: true },
-  { id: 8, name: "Juventus", league: "Serie A", isActive: true },
+  {
+    id: 2,
+    userName: "Michell N. Morgan",
+    rating: 4,
+    time: "2 day ago",
+    text: review,
+  },
+];
+
+const description = `Lorem Ipsum is simply dummy text of the printing and 
+typesetting industry. Lorem Ipsum has been the 
+industry's standard dummy text ever since the 1500s, 
+when an unknown printer took a galley of type and 
+scrambled it to make a type specimen book. \n\n
+Lorem Ipsum is simply dummy text of the printing and 
+typesetting industry. Lorem Ipsum has been the 
+industry's standard dummy text ever.`;
+const PRODUCTS: IProduct[] = [
+  { id: 1, name: "Oranges", price: 1400, description, category: 'Fruits', reviews: REVIEWS },
+  { id: 2, name: "Cucumber", price: 1400, description, category: 'Fruits', reviews: REVIEWS  },
+  { id: 3, name: "Avocado", price: 1400, description, category: 'Fruits', reviews: REVIEWS },
+  { id: 4, name: "Brocoli", price: 1400, description, category: 'Vegetables', reviews: REVIEWS  },
+  { id: 5, name: "Lettuce", price: 1400, description, category: 'Vegetables', reviews: REVIEWS  },
+  { id: 6, name: "Water Melon", price: 1400, description, category: 'Fruits', reviews: REVIEWS  },
+  { id: 7, name: "Mangoes", price: 1400, description, category: 'Fruits', reviews: REVIEWS  },
+  { id: 8, name: "Tomatoes", price: 1400, description, category: 'Vegetables', reviews: REVIEWS  },
 ];
 
 export const getProducts = (req: Request, res: Response) => {
@@ -40,7 +64,7 @@ export const getActiveProducts: RequestHandler = (
   req: Request,
   res: Response
 ) => {
-  const activeProducts = PRODUCTS.filter((product) => product.isActive);
+  const activeProducts = PRODUCTS;
   const response = ApiResponse.successData(activeProducts);
   res.send(response);
 };
@@ -57,7 +81,7 @@ export const getProductById: RequestHandler = (
   res: Response
 ) => {
   const product = PRODUCTS.find(
-    (product) => product.id === +req.params.id && product.isActive
+    (product) => product.id === +req.params.id
   );
   if (!product) {
     throw new NotFoundError("Product not found");
@@ -102,10 +126,8 @@ export const updateProductById: RequestHandler = (
   res: Response
 ) => {
   const currentProduct = PRODUCTS.find(
-    (product) => product.id === +req.params.id && product.isActive
+    (product) => product.id === +req.params.id
   );
-  currentProduct.name = req.body.name || currentProduct.name;
-  currentProduct.league = req.body.league || currentProduct.league;
 
   res.send({ success: true });
 };
@@ -122,7 +144,7 @@ export const deleteProductById: RequestHandler = (
   res: Response
 ) => {
   const productIndex = PRODUCTS.findIndex(
-    (product) => product.id === +req.params.id && product.isActive
+    (product) => product.id === +req.params.id
   );
   PRODUCTS.splice(productIndex, 1);
 

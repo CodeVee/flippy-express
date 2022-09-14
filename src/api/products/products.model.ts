@@ -3,8 +3,23 @@ import { Request } from "express";
 interface IProduct {
   id: number;
   name: string;
-  league: string;
-  isActive: boolean;
+  price: number;
+  description: string;
+  category: string;
+  reviews: IReview[];
+}
+
+interface ICategory {
+  id: number;
+  name: string;
+}
+
+interface IReview {
+  id: number;
+  userName: string;
+  rating: number;
+  time: string;
+  text: string;
 }
 
 interface IGetProductReq extends Request<{ id: IProduct["id"] }> {}
@@ -14,7 +29,7 @@ interface IUpdateProductReq
 interface IDeleteProductReq extends Request<{ id: IProduct["id"] }> {}
 
 export {
-  IProduct,
+  IProduct, ICategory, IReview,
   IGetProductReq,
   IAddProductReq,
   IUpdateProductReq,
