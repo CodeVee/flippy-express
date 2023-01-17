@@ -20,9 +20,7 @@ function handleError(
   let customError = err;
 
   if (!(err instanceof CustomError)) {
-    customError = new ServerError(
-      "Oh no, this is embarrasing. We are having troubles my friend"
-    );
+    customError = new ServerError();
   }
 
   const response = ApiResponse.failureMessage(err.message);

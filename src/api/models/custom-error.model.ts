@@ -1,16 +1,13 @@
 class CustomError {
   message: string;
   statusCode: number;
-  additionalInfo: any;
 
   constructor(
-    message: string,
+    message: string = 'Internal Error',
     statusCode: number = 500,
-    additionalInfo: any = {}
   ) {
     this.message = message;
     this.statusCode = statusCode;
-    this.additionalInfo = additionalInfo;
   }
 }
 
@@ -39,8 +36,8 @@ class NotFoundError extends CustomError {
 }
 
 class ServerError extends CustomError {
-  constructor(message: string) {
-    super(message);
+  constructor() {
+    super();
   }
 }
 
