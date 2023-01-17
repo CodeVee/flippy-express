@@ -1,7 +1,7 @@
 import { AppDataSource } from "./data-source";
 import chalk from 'chalk';
 
-const connectDB = async () => {
+const connect = async () => {
   try {
     const dataSource = await AppDataSource.initialize();
 
@@ -12,4 +12,4 @@ const connectDB = async () => {
   }
 };
 
-export default connectDB;
+export default { connect };

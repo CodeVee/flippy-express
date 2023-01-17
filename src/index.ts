@@ -7,13 +7,13 @@ import logger from './api/middlewares/logger.middleware';
 import errorHandler from './api/middlewares/error-handler.middleware';
 import { generateTokenSecret } from './api/utils/jwt.utils';
 import routes from './api/routes';
-import db from './api/config/db'
+import Database from './api/config/db'
 import chalk from 'chalk';
 
 import dotenv from 'dotenv';
 dotenv.config();
 
-db();
+Database.connect();
 require('./api/middlewares/passport.middleware')
 
 const app = express();
