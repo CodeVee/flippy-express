@@ -14,7 +14,6 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 Database.connect();
-require('./api/middlewares/passport.middleware')
 
 const app = express();
 const port = +process.env.PORT || 3000;
